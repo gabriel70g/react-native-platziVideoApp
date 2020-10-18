@@ -1,35 +1,30 @@
-import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 
-
-function CategoryListLayout (props){
+function CategoryListLayout(props) {
   return (
-    <View style={styles.container} >
-      <Text style={styles.title} >{props.title}</Text>
-      {props.children}
-     </View>
-  ) 
+    <ImageBackground
+      source={require('../../../assets/backgronund.png')}
+      style={styles.container}
+    >
+        <Text style={styles.title}>{props.title}</Text>
+        {props.children}
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
-    flex: 1,
+    paddingVertical: 30,
+    paddingHorizontal:10,
   },
-  title:{
+  title: {
     color: '#4c4c4c',
-    fontSize:20,
+    fontSize: 20,
     marginBottom: 10,
     fontWeight: 'bold',
-    marginLeft:8
+    
+  },
+});
 
-  }
-
-})
-
-
-export default  CategoryListLayout;
+export default CategoryListLayout;
