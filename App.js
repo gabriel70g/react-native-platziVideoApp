@@ -6,23 +6,43 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {Text} from 'react-native';
 import Home from './src/screens/containers/Home';
 import Header from './src/sections/components/Header';
-import SuggestionList from './src/videos/containers/SuggestionList'
+import SuggestionList from './src/videos/containers/SuggestionList';
+import CategoryList from './src/videos/containers/categoryList'
+import API from './utils/api';
+type Props = {};
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <Home>
-        <Header />
-        <Text>hola</Text>
+export default class App extends Component {
 
-        <SuggestionList />
-      </Home>
-    </>
-  );
-};
+  state = {
+    suggestionList: [],
+    categoryList: [],
+    }
 
-export default App;
+  async componentDidMount(){
+    const movies = await API.getSuggestion(10);
+    const categories = await API.getMovies();
+    this.setState({
+      suggestionList: movies,
+      categoryList: categories,
+    })
+  }
+
+  render() {
+    return (
+      <>
+        <Home>
+          <Header />
+          <Text>Buscador</Text>
+          <Text>Categorias</Text>
+          <CategoryList list={this.state.categoryList} />
+          <SuggestionList list={this.state.suggestionList} />
+          
+        </Home>
+      </>
+    );
+  }
+}
